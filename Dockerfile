@@ -2,11 +2,15 @@
 FROM alpine:3.20
 RUN apk add --no-cache tor tinyproxy
 
-# write a pristine two-line torrc
-RUN printf 'SOCKSPort 9050\nLog notice stdout\n' > /etc/tor/torrc
-
-# copy tinyproxy.conf as before
+# tinyproxy: client → Tor SOCKS
 COPY tinyproxy.conf /etc/tinyproxy/tinyproxy.conf
 
 EXPOSE 8080
-CMD tor & tinyproxy -d
+
+# ----- ONE process per container: use tini to keep PID 1 tidy
+RUN apk add --no-cache tini
+ENTRYPOINT ["/sbin/tini","--"]
+
+# Start tor with flags, then tinyproxy
+CMD tor --SocksPort 9050 --Log "notice stdout" & \
+    tinyproxy -d
