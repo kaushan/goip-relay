@@ -7,5 +7,9 @@ RUN rm -f /etc/tor/torrc
 COPY tinyproxy.conf /etc/tinyproxy/tinyproxy.conf
 
 EXPOSE 8080
-CMD tor --SocksPort 9050 --Log "notice stdout" & \
-    tinyproxy -d
+CMD tor -f /dev/null \
+        --SocksPort 9050 \
+        --Log "notice stdout" \
+        --GeoIPFile "" \
+        --GeoIPv6File "" \
+    & tinyproxy -d
