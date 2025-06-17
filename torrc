@@ -1,3 +1,2 @@
 SOCKSPort 9050
 Log notice stdout
-RunAsDaemon 0
