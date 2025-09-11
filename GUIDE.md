@@ -36,9 +36,9 @@ curl -X POST \
         "task_num": 1,
         "tasks": [{
             "tid": 5011,
-            "from": "23",   
+            "from": "4",   
             "to": "19543190477",
-            "sms": "Test via API 23.01",
+            "sms": "Test via API 4.01",
             "chs": "utf8",
             "coding": 0
         }]
@@ -49,13 +49,22 @@ curl -X POST \
 
 - port only on number and it will use active sim to send 
 
+## get current number 
+
+curl -X GET \
+  -H "X-API-KEY: lAzDbl0r6mg7HR4zQkQ3FxKFGFkkzJo9" \
+  -H "Content-Type: application/json" \
+  "http://167.172.133.156:8080/goip_send_ussd.html?username=root&password=zynJyc-tysvat-2&port=4.02&ussd=%23686%23"
+{"code":0, "reason":"OK", "resp":"Your mobile number is 646-341-7156"}% 
+
+
 ## swtich port 
 
 curl -X POST \
   -H "X-API-KEY: lAzDbl0r6mg7HR4zQkQ3FxKFGFkkzJo9" \
   "http://167.172.133.156:8080/goip_send_cmd.html?username=root&password=zynJyc-tysvat-2" \
   -H "Content-Type: application/json" \
-  -d '{"type":"command","op":"switch","ports":"23.01"}'
+  -d '{"type":"command","op":"switch","ports":"4.02"}'
 
 {"code":0, "reason":"OK"}%  
 
